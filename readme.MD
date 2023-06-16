@@ -2,11 +2,10 @@
 This ia a Java Spring boot server application to handle shortening of URLs using Rest APIs.
 
 ### Features
-* `Retrieve a list of stocks`
-* `Retrieve a single stock by ID`
-* `Update the current price and name of a stock`
-* `Delete a stock by ID`
-* `Create a new stock`
+* `Create and shorten a new lik`
+* `Retrieve a list of your links`
+* `Retrieve a single link`
+* `Delete a link`
 
 ### Technologies used:
 * `Java`
@@ -26,7 +25,7 @@ This ia a Java Spring boot server application to handle shortening of URLs using
 # Getting Started
 ### Clone the Repository
 ```
-git clone https://github.com/RevEmmanuel/Stock-API.git 
+git clone https://github.com/RevEmmanuel/url_shortener.git 
 ```
 
 ### Configure the database
