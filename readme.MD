@@ -2,7 +2,9 @@
 This ia a Java Spring boot server application to handle shortening of URLs using Rest APIs.
 
 ### Features
-* `Create and shorten a new lik`
+* `Signup`
+* `Login`
+* `Create and shorten a new link`
 * `Retrieve a list of your links`
 * `Retrieve a single link`
 * `Delete a link`
@@ -35,6 +37,7 @@ db.host=
 db.name=
 db.username=
 db.password=
+Jwt_Secret_Key=
 ```
 
 ### Build and Run the Application

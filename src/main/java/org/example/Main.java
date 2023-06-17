@@ -1,14 +1,18 @@
 package org.example;
 
-
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.servers.Server;
 import lombok.extern.slf4j.Slf4j;
+import org.example.data.models.Link;
+import org.example.data.repositories.LinkRepository;
+import org.example.security.AppUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.Scheduled;
 
 @Slf4j
 @SpringBootApplication
@@ -33,8 +37,24 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 description = "Postman Documentation")
 )
 public class Main {
+
+    @Autowired
+    private LinkRepository linkRepository;
+
+
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
-        log.info("App started successfully!");
+        log.info("::::::Server Running::::::");
     }
+
+    @Scheduled(fixedRate =  60 * 60 * 1000)
+    private void getAllLinkNames() {
+        AppUtils.setLinkNames(linkRepository.findAll().stream().map(Link::getLinkName).toList());
+    }
+
+    @Scheduled(initialDelay = 0, fixedDelay = Long.MAX_VALUE)
+    public void runOnStartUp() {
+        getAllLinkNames();
+    }
+
 }

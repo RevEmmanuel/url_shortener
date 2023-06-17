@@ -17,15 +17,12 @@ public class Link {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String url;
-
     private String title;
-
     private String linkName;
-
     private final LocalDateTime dateCreated = LocalDateTime.now();
-
-    private LocalDateTime dateLastModified;
+    private LocalDateTime dateLastModified = LocalDateTime.now();
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    private UserEntity owner;
 
 }
