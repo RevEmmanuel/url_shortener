@@ -43,7 +43,7 @@ Jwt_Secret_Key=
 ### Build and Run the Application
 Navigate to the project directory and build the application using Maven:
 ```
-cd Stock-API
+cd url-shortener
 mvn clean install
 ```
 Run the application using Maven:
