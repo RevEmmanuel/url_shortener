@@ -34,13 +34,13 @@ public class LinkController {
     }
 
     @Operation(summary = "Get all links")
-    @GetMapping("")
+    @GetMapping("/all")
     public ResponseEntity<List<LinkDTO>> getAllLinks() {
         return new ResponseEntity<>(linkService.getAllLinks(), HttpStatus.OK);
     }
 
     @Operation(summary = "Get link")
-    @GetMapping("/{id}")
+    @GetMapping("/find/{id}")
     public ResponseEntity<LinkDTO> getLink(
             @Parameter(name = "id", description = "The id of the link")
             @PathVariable Long id) {

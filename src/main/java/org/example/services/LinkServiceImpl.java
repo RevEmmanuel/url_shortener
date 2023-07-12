@@ -13,6 +13,8 @@ import org.example.data.models.Link;
 import org.example.data.repositories.LinkRepository;
 import org.example.exceptions.LinkNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +23,8 @@ import java.util.Optional;
 public class LinkServiceImpl implements LinkService {
 
     private final LinkRepository linkRepository;
+
+
     private final UserService userService;
 
     @Override
@@ -59,6 +63,7 @@ public class LinkServiceImpl implements LinkService {
 
         savedLink.setUrl(updateLinkRequest.getUrl());
         savedLink.setTitle(updateLinkRequest.getTitle());
+        savedLink.setDateLastModified(LocalDateTime.now());
 
         Link updatedLink = linkRepository.save(savedLink);
         return AppUtils.mapLinkEntityToLinkDTO(updatedLink);

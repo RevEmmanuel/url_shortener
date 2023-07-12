@@ -9,13 +9,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.data.models.Link;
 import org.example.data.repositories.LinkRepository;
 import org.example.security.AppUtils;
+import org.example.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.Scheduled;
 
-@Slf4j
 @SpringBootApplication
+@Slf4j
 @OpenAPIDefinition(
         info = @Info(
                 title = "URL Shortener",

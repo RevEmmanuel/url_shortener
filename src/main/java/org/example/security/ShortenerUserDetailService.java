@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.data.models.UserEntity;
 import org.example.data.repositories.UserRepository;
 import org.example.exceptions.UserNotAuthorizedException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,12 +15,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ShortenerUserDetailService implements UserDetailsService {
 
+//    @Autowired
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findByUsername(username)
-                .orElseThrow(UserNotAuthorizedException::new);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found!"));
         return AuthenticatedUser.builder()
                 .user(user)
                 .roles(user.getRoles())
