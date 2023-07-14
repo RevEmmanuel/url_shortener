@@ -38,8 +38,8 @@ public class BrevoEmailServiceImpl implements EmailService {
     @Value("${api_url}")
     private String API_URL;
 
-    @Override
     @Async
+    @Override
     public void sendEmail(String to, String subject, String htmlContent) {
         WebClient client = WebClient.builder()
                 .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)

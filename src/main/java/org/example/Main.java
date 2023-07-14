@@ -9,10 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.data.models.Link;
 import org.example.data.repositories.LinkRepository;
 import org.example.security.AppUtils;
-import org.example.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.Scheduled;
 
 @SpringBootApplication
@@ -35,8 +35,10 @@ import org.springframework.scheduling.annotation.Scheduled;
         },
         externalDocs = @ExternalDocumentation(
                 url = "https://bit.ly/revemmanuel-urlshortener",
-                description = "Postman Documentation")
+                description = "Postman Documentation"
+        )
 )
+@EnableAsync
 public class Main {
 
     @Autowired
