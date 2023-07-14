@@ -1,5 +1,6 @@
 package org.example.services.email;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.data.dtos.requests.EmailRequest;
 import org.example.data.dtos.requests.MailInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.List;
 
 @Service
+@Slf4j
 public class BrevoEmailServiceImpl implements EmailService {
 
     @Autowired
@@ -58,7 +60,7 @@ public class BrevoEmailServiceImpl implements EmailService {
                 .retrieve()
                 .toBodilessEntity()
                 .block();
-        System.out.println("Doneeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+        log.info("Registration Email sent for user: " + to + "!");
     }
 
     private void sendEmailAgain(String to, String subject, String htmlContent) {

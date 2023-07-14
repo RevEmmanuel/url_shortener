@@ -59,9 +59,9 @@ public class UserServiceImpl implements UserService {
                 "<head></head>" +
                 "<body>" +
                 "<p>Hi there, " + newUser.getFirstName() + "!</p>" +
-                "<p>Welcome to You-RL shortener. We're glad to have you!</p>" +
+                "<p>Welcome to YouRL shortener. We're glad to have you!</p>" +
                 "</body></html>";
-        emailService.sendEmail(newUser.getEmail(), "Welcome to You-RL", htmlContent);
+        emailService.sendEmail(newUser.getEmail(), "Welcome to YouRL", htmlContent);
         UserEntity savedUser = userRepository.save(newUser);
         LoginResponse response = this.generateTokens(new HashMap<>(), savedUser.getEmail());
         return CreateUserResponse.builder()
@@ -126,7 +126,8 @@ public class UserServiceImpl implements UserService {
         Long userId = deleteUserRequest.getUserId();
         if (!Objects.equals(userId, this.getCurrentUser().getId())) throw new UserNotAuthorizedException();
         UserEntity foundUser = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-        if (passwordEncoder.matches(deleteUserRequest.getPassword(), foundUser.getPassword())) userRepository.delete(foundUser);
+        if (passwordEncoder.matches(deleteUserRequest.getPassword(), foundUser.getPassword())) foundUser.setIsEnabled(false);
+        userRepository.save(foundUser);
         return "SUCCESSFUL";
     }
 
