@@ -1,10 +1,8 @@
 package org.example.services;
 
-import org.example.data.dtos.requests.CheckAvailabilityRequest;
 import org.example.data.dtos.requests.CreateLinkRequest;
 import org.example.data.dtos.requests.UpdateLinkRequest;
 import org.example.data.dtos.responses.LinkDTO;
-
 import java.util.List;
 
 public interface LinkService {
@@ -17,8 +15,6 @@ public interface LinkService {
     LinkDTO updateLink(UpdateLinkRequest updateLinkRequest);
 
     String deleteLink(Long id);
-
-    boolean checkAvailability(CheckAvailabilityRequest checkAvailabilityRequest);
 
     String getOriginalUrl(String linkName);
 

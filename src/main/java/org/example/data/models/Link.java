@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,7 +25,8 @@ public class Link {
     private String linkName;
     private final LocalDateTime dateCreated = LocalDateTime.now();
     private LocalDateTime dateLastModified = LocalDateTime.now();
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToOne()
+    @JoinColumn(name = "users_id", nullable = true)
     private UserEntity owner;
 
 }

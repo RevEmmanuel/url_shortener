@@ -5,10 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -16,6 +14,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "users")
 public class UserEntity {
 
     @Id
@@ -29,6 +28,7 @@ public class UserEntity {
     private String email;
     private String password;
     private Boolean isEnabled;
+    private String profileImage;
     private Set<Roles> roles = new HashSet<>();
 
     private final LocalDateTime dateJoined = LocalDateTime.now();

@@ -2,15 +2,28 @@ package org.example.security;
 
 import org.example.data.dtos.responses.LinkDTO;
 import org.example.data.models.Link;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import com.cloudinary.Cloudinary;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.web.reactive.function.client.WebClient;
+import com.cloudinary.utils.ObjectUtils;
 
+@Configuration
 public class AppUtils {
     private static final int LENGTH_OF_LINK_NAME = 12;
     private static List<String> linkNamesAlreadyTaken = new ArrayList<>();
-    public static final String BEARER = "Bearer ";
     public static final String ISSUER= "Administrator";
+
+    @Value("${cloudinary_name}")
+    private String cloudName;
+    @Value("${cloudinary_api_key}")
+    private String apiKey;
+    @Value("${cloudinary_api_secret}")
+    private String apiSecret;
 
     public static String generateLinkName() {
         SecureRandom secureRandom = new SecureRandom();
@@ -40,5 +53,21 @@ public class AppUtils {
 
     public static void setLinkNames(List<String> links) {
         linkNamesAlreadyTaken = links;
+    }
+
+    @Bean
+    public Cloudinary cloudinary(){
+        return new Cloudinary(
+                ObjectUtils.asMap(
+                        "cloud_name",cloudName,
+                        "api_key",apiKey,
+                        "api_secret",apiSecret
+                )
+        );
+    }
+
+    @Bean
+    public WebClient.Builder getWebClientBuilder() {
+        return WebClient.builder();
     }
 }

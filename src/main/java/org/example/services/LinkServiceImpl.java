@@ -5,7 +5,6 @@ import org.example.data.models.UserEntity;
 import org.example.exceptions.UrlShortenerException;
 import org.example.exceptions.UserNotAuthorizedException;
 import org.example.security.AppUtils;
-import org.example.data.dtos.requests.CheckAvailabilityRequest;
 import org.example.data.dtos.requests.CreateLinkRequest;
 import org.example.data.dtos.requests.UpdateLinkRequest;
 import org.example.data.dtos.responses.LinkDTO;
@@ -13,10 +12,8 @@ import org.example.data.models.Link;
 import org.example.data.repositories.LinkRepository;
 import org.example.exceptions.LinkNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -75,16 +72,6 @@ public class LinkServiceImpl implements LinkService {
         if (!foundLink.getOwner().getId().equals(userService.getCurrentUser().getId())) throw new UserNotAuthorizedException();
         linkRepository.delete(foundLink);
         return "DELETED SUCCESSFULLY";
-    }
-
-    @Override
-    public boolean checkAvailability(CheckAvailabilityRequest checkAvailabilityRequest) {
-        Optional<Link> link = linkRepository.findByLinkName(checkAvailabilityRequest.getLinkName());
-        boolean res;
-        res = !linkRepository.existsByLinkName(checkAvailabilityRequest.getLinkName())
-                || link.isEmpty() || link.get().getId().equals(checkAvailabilityRequest.getId());
-
-        return res;
     }
 
     @Override
