@@ -28,9 +28,10 @@ import org.springframework.scheduling.annotation.Scheduled;
                 )
         ),
         servers = {
+
                 @Server(
-                        url = "http://localhost:7000",
-                        description = "DEV Server"
+                        url = "https://urlshortener-production-3315.up.railway.app",
+                        description = "PROD server"
                 )
         },
         externalDocs = @ExternalDocumentation(
