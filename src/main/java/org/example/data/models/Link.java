@@ -25,8 +25,7 @@ public class Link {
     private String linkName;
     private final LocalDateTime dateCreated = LocalDateTime.now();
     private LocalDateTime dateLastModified = LocalDateTime.now();
-    @ManyToOne()
-    @JoinColumn(name = "users_id", nullable = true)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserEntity owner;
 
 }
