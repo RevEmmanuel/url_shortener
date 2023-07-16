@@ -3,6 +3,7 @@ package org.example.controllers;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.example.data.dtos.requests.DeleteUserRequest;
+import org.example.data.dtos.requests.UpdateUserDetailsRequest;
 import org.example.data.dtos.responses.CreateUserResponse;
 import org.example.data.dtos.responses.FindUserResponse;
 import org.example.data.dtos.responses.LoginResponse;
@@ -76,6 +77,12 @@ public class UserController {
     @Operation(summary = "Current User", description = "Get the current user")
     public ResponseEntity<UserEntity> getCurrentUser() {
         return ResponseEntity.ok(userService.getCurrentUser());
+    }
+
+    @PatchMapping("/update")
+    @Operation(summary = "Update user details", description = "Update the user details")
+    public ResponseEntity<FindUserResponse> updateUser(@Valid @RequestBody UpdateUserDetailsRequest updateRequest) {
+        return new ResponseEntity<>(userService.updateUserDetails(updateRequest), HttpStatus.OK);
     }
 }
 
