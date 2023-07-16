@@ -13,7 +13,7 @@ public class FindUserResponse {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
     private LocalDateTime dateJoined;
+    private String imageUrl;
 
 }

@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
                 .firstName(foundUser.getFirstName())
                 .email(foundUser.getEmail())
                 .username(foundUser.getUsername())
-                .password(foundUser.getPassword())
+                .imageUrl(foundUser.getProfileImage())
                 .build();
     }
 
@@ -156,7 +156,7 @@ public class UserServiceImpl implements UserService {
                 .firstName(foundUser.getFirstName())
                 .email(foundUser.getEmail())
                 .username(foundUser.getUsername())
-                .password(foundUser.getPassword())
+                .imageUrl(foundUser.getProfileImage())
                 .build()).collect(Collectors.toList());
     }
 

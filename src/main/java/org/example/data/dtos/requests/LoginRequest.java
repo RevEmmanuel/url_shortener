@@ -1,5 +1,6 @@
 package org.example.data.dtos.requests;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Data;
@@ -8,9 +9,11 @@ import lombok.Data;
 @Builder
 public class LoginRequest {
 
-    @NotBlank(message = "Username cannot be blank")
+    @Email(message = "Invalid email address")
+    @NotBlank(message = "Email is required")
     private String email;
-    @NotBlank(message = "Password cannot be blank")
+
+    @NotBlank(message = "Password is required")
     private String password;
 
 }

@@ -10,13 +10,14 @@ import lombok.Data;
 @Builder
 public class CreateUserRequest {
 
-    @NotBlank(message = "username is required")
+    @NotBlank(message = "Username is required")
     private String username;
 
     @Email(message = "Invalid email address")
+    @NotBlank(message = "Email is required")
     private String email;
 
-    @NotBlank(message = "first name cannot be blank")
+    @NotBlank(message = "First name cannot be blank")
     private String firstName;
 
     private String lastName;
@@ -25,6 +26,6 @@ public class CreateUserRequest {
             message = "Password must be between 8 - 64 characters and must contain at least 1 uppercase, 1 lowercase," +
                     " 1 number and 1 special " +
                     "character")
-    @NotBlank(message = "password is required")
+    @NotBlank(message = "Password is required")
     private String password;
 }
