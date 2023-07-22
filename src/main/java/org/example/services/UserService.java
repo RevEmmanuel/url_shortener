@@ -3,6 +3,7 @@ package org.example.services;
 import org.example.data.dtos.requests.CreateUserRequest;
 import org.example.data.dtos.requests.DeleteUserRequest;
 import org.example.data.dtos.requests.LoginRequest;
+import org.example.data.dtos.requests.UpdateUserDetailsRequest;
 import org.example.data.dtos.responses.CreateUserResponse;
 import org.example.data.dtos.responses.FindUserResponse;
 import org.example.data.dtos.responses.LoginResponse;
@@ -27,5 +28,7 @@ public interface UserService {
     String deleteProfileImage();
 
     List<FindUserResponse> findAll();
+
+    FindUserResponse updateUserDetails(UpdateUserDetailsRequest updateUserDetailsRequest);
 }
 

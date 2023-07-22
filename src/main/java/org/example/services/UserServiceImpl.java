@@ -3,6 +3,7 @@ package org.example.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.data.dtos.requests.DeleteUserRequest;
+import org.example.data.dtos.requests.UpdateUserDetailsRequest;
 import org.example.data.models.Roles;
 import org.example.exceptions.UserNotAuthorizedException;
 import org.example.exceptions.UserNotFoundException;
@@ -160,6 +161,49 @@ public class UserServiceImpl implements UserService {
                 .build()).collect(Collectors.toList());
     }
 
+    @Override
+    public FindUserResponse updateUserDetails(UpdateUserDetailsRequest updateUserDetailsRequest) {
+        UserEntity currentUser = this.getCurrentUser();
+        if (!currentUser.getUsername().equals(updateUserDetailsRequest.getUsername())) {
+            if (userRepository.existsByUsername(updateUserDetailsRequest.getUsername())) throw new UsernameAlreadyExistsException();
+        }
+        String currentEmail = null;
+        if (!currentUser.getEmail().equals(updateUserDetailsRequest.getEmail())) {
+            if (userRepository.existsByEmail(updateUserDetailsRequest.getEmail())) throw new UsernameAlreadyExistsException("Email is taken");
+            currentEmail = currentUser.getEmail();
+        }
+        currentUser.setUsername(updateUserDetailsRequest.getUsername());
+        currentUser.setEmail(updateUserDetailsRequest.getEmail());
+        currentUser.setFirstName(updateUserDetailsRequest.getFirstName());
+        currentUser.setLastName(updateUserDetailsRequest.getLastName());
+        userRepository.save(currentUser);
+        String htmlContentForOldEmail = "<html>" +
+                "<head></head>" +
+                "<body>" +
+                "<h2>Hi there, " + currentUser.getFirstName() + "!</h2>" +
+                "<p>We just want to notify you that some changes have occurred on your YouRL account!</p>" +
+                "<p>If you did not authorize these changes, please go ahead to chane your password and update your account details.</p>" +
+                "</body></html>";
+        String htmlContent = "<html>" +
+                "<head></head>" +
+                "<body>" +
+                "<h2>Hi there, " + currentUser.getFirstName() + "!</h2>" +
+                "<p>Welcome to your new email account!</p>" +
+                "<p>Best of luck!</p>" +
+                "</body></html>";
+        emailService.sendEmail(currentEmail, "Your Email Address has been updated!", htmlContentForOldEmail);
+        if (!currentUser.getEmail().equals(currentEmail)) emailService.sendEmail(currentUser.getEmail(), "Your Email Address has been updated!", htmlContent);
+
+        return FindUserResponse.builder()
+                .id(currentUser.getId())
+                .lastName(currentUser.getLastName())
+                .firstName(currentUser.getFirstName())
+                .email(currentUser.getEmail())
+                .username(currentUser.getUsername())
+                .imageUrl(currentUser.getProfileImage())
+                .build();
+    }
+
     private LoginResponse generateTokens(Map<String, Object> claims, String email) {
         String accessToken = jwtUtils.generateAccessToken(claims, email);
         String refreshToken = jwtUtils.generateRefreshToken(email);
@@ -171,4 +215,3 @@ public class UserServiceImpl implements UserService {
     }
 
 }
-
