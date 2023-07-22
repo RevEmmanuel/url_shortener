@@ -35,7 +35,7 @@ public class LinkServiceImpl implements LinkService {
                 .linkName(linkName)
                 .url(createLinkRequest.getUrl())
                 .title(createLinkRequest.getTitle())
-                .owner(userService.getCurrentUser())
+                .owner(UserEntity.builder().id(userService.getCurrentUser().getId()).build())
                 .build();
         Link savedLink = linkRepository.save(newLink);
         return AppUtils.mapLinkEntityToLinkDTO(savedLink);
