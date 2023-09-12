@@ -33,7 +33,7 @@ import org.springframework.scheduling.annotation.Scheduled;
                         description = "DEV Server"
                 ),
                 @Server(
-                        url = "https://urlshortener-production-3315.up.railway.app",
+                        url = "https://urlshortener-production-f380.up.railway.app",
                         description = "PROD server"
                 )
         },
