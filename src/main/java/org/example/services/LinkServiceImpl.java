@@ -26,13 +26,12 @@ public class LinkServiceImpl implements LinkService {
 
     @Override
     public LinkDTO createLink(CreateLinkRequest createLinkRequest) {
-        String linkName = AppUtils.generateLinkName();
         List<LinkDTO> userLinks = getAllLinks();
         for (LinkDTO link : userLinks) {
             if (link.getTitle().equals(createLinkRequest.getTitle())) throw new UrlShortenerException("Title has been used previously.");
         }
         Link newLink = Link.builder()
-                .linkName(linkName)
+                .linkName(AppUtils.generateLinkName())
                 .url(createLinkRequest.getUrl())
                 .title(createLinkRequest.getTitle())
                 .owner(UserEntity.builder().id(userService.getCurrentUser().getId()).build())
