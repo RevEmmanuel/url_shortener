@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @OpenAPIDefinition
-@RequestMapping(value = "")
+@RequestMapping(value = "/")
 public class InfoController {
 
     @Operation(summary = "Landing Page", description = "Information about the project")
