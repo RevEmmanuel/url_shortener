@@ -1,4 +1,4 @@
-# Stock API
+# URL Shortener
 This ia a Java Spring boot server application to handle shortening of URLs using Rest APIs.
 
 ### Features
