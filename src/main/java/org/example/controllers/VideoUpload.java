@@ -49,11 +49,12 @@ public class VideoUpload {
     }
 
     @PostMapping(value = "/upload-video/{userId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> uploadVideo(@RequestParam(value = "file") MultipartFile file, @PathVariable String userId) {
+    public ResponseEntity<?> uploadVideo(@RequestParam(value = "file") MultipartFile file, @PathVariable String userId) {
         try {
             String response = cloudService.upload(file);
-            tifeVideoRepository.save(TifeVideo.builder().uniqueUserId(userId).videoUrl(response).build());
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            TifeVideo videoRequest = TifeVideo.builder().uniqueUserId(userId).videoUrl(response).build();
+            TifeVideo tifeVideo = tifeVideoRepository.save(videoRequest);
+            return new ResponseEntity<>(tifeVideo, HttpStatus.OK);
         }catch (UrlShortenerException exception){
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
