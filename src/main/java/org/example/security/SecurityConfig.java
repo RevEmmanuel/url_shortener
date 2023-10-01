@@ -22,7 +22,7 @@ public class SecurityConfig {
 
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final JwtAuthenticationFilter authenticationFilter;
-    private final String[] WHITE_LIST = {"/api/v1/auth/login", "/api/v1/auth/signup", "api/v1/link/get-original-url/**", "/"};
+    private final String[] WHITE_LIST = {"/api/v1/video/upload/", "/api/v1/video/**", "/api/v1/auth/login", "/api/v1/auth/signup", "api/v1/link/get-original-url/**", "/"};
     private final String[] SWAGGER = {"/swagger-ui.html", "/swagger-ui/**", "v3/api-docs", "v3/api-docs/**"};
 
     @Bean
